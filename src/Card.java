@@ -15,8 +15,11 @@ public class Card
 
    /**
     * Create a new card with a question and answer
-    * @param question The question on the card
-    * @param answer The answer on the card
+    * 
+    * @param question
+    *           The question on the card
+    * @param answer
+    *           The answer on the card
     */
    Card(String question, String answer)
    {
