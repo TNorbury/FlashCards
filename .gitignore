@@ -6,6 +6,9 @@ bin/
 .project
 .classpath
 
+# Ignore Notes folder
+Notes/
+
 
 
 
