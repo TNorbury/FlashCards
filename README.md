@@ -2,7 +2,7 @@
 Program that creates a collection of flash cards in order to aid with studying
 
 # How to run
-Compile the file using `javac` and then run using `java`
+Compile src/FlashCard.java using `javac` and then run it using `java`
 
 Pass the COMPLETE* file path of you txt file with questions and answers as the parameter. 
 
