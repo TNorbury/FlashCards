@@ -35,6 +35,7 @@ If your file doesn't follow that format your cards will probably come out weird.
   * This would also include a file browser, at some point, so the user wouldn't have to 
 3. Add a write/wrong discrimination  
   * User would indicate if they got a card write or wrong, and depending on the answer the cards will be put into one of two collections, and on the next pass through the cards, only the "wrong" cards will be displayed
+4. Create an executable so user doesn't have to compile code
 
 
 
