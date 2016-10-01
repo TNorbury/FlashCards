@@ -44,4 +44,10 @@ public class Card
    {
       return _answer;
    }
+   
+   
+   public String toString()
+   {
+      return "Question: " + _question + "\nAnswer: " + _answer + "\n";
+   }
 }
