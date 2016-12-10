@@ -15,8 +15,9 @@ import java.util.Scanner;
 public class FlashCard
 {
    private static final int QUESTION_INDEX = 0;
-   private static final int ANSWER_INDEX = 1;
-   
+   private static final int ANSWER_INDEX   = 1;
+
+
    private static ArrayList<Card> createCards(String filePath)
          throws FileNotFoundException
    {
@@ -32,10 +33,10 @@ public class FlashCard
       {
          while (in.hasNext())
          {
-            //Parse and split each line of the input.
+            // Parse and split each line of the input.
             questionAndAnswer = in.nextLine().split(":", 2);
-            
-            //Get the question and answer from the line
+
+            // Get the question and answer from the line
             question = questionAndAnswer[QUESTION_INDEX];
             answer = questionAndAnswer[ANSWER_INDEX];
 
@@ -52,7 +53,7 @@ public class FlashCard
       }
 
       in.close();
-      
+
       return cards;
    }
 
@@ -62,6 +63,8 @@ public class FlashCard
       boolean again = true;
       ArrayList<Card> cards = null;
       Scanner userInput = new Scanner(System.in);
+      int lastQuestionSize = 0;
+      int lastAnswerSize = 0;
 
       try
       {
@@ -78,9 +81,12 @@ public class FlashCard
          // Shuffle the cards so that they're in random order.
          Collections.shuffle(cards);
 
+         System.out.println(
+               "=========================================================="
+                     + "=====================\n");
+
          for (int i = 0; i < cards.size(); i++)
          {
-            // System.out.println(cards.get(i));
 
             // Iterate through each card.
             // Display the card's question
@@ -98,6 +104,9 @@ public class FlashCard
             System.out.println(
                   "=========================================================="
                         + "=====================\n");
+
+            // Cover up the old display
+
          }
 
          // Ask the user if the want to go through the cards again
