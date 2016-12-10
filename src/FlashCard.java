@@ -14,6 +14,9 @@ import java.util.Scanner;
  */
 public class FlashCard
 {
+   private static final int QUESTION_INDEX = 0;
+   private static final int ANSWER_INDEX = 1;
+   
    private static ArrayList<Card> createCards(String filePath)
          throws FileNotFoundException
    {
@@ -21,9 +24,10 @@ public class FlashCard
       String answer;
       ArrayList<Card> cards = new ArrayList<>();
       Scanner in = new Scanner(new File(filePath), "UTF-8");
+      String[] questionAndAnswer = new String[2];
 
       // Set the scanner delimiter to delimit on commas and new lines
-      in.useDelimiter("\\n|\\cr|\\:");
+      // in.useDelimiter("\\n|\\cr|\\:");
 
       // Iterate through the file creating flash cards until the end of file is
       // reached
@@ -31,10 +35,12 @@ public class FlashCard
       {
          while (in.hasNext())
          {
-
-            // Parse the question and answer
-            question = in.next();
-            answer = in.next();
+            //Parse and split each line of the input.
+            questionAndAnswer = in.nextLine().split(":");
+            
+            //Get the question and answer from the line
+            question = questionAndAnswer[QUESTION_INDEX];
+            answer = questionAndAnswer[ANSWER_INDEX];
 
             // Create a new card and add it to the array list
             cards.add(new Card(question, answer));
@@ -70,9 +76,9 @@ public class FlashCard
 
       while (again)
       {
-         //Shuffle the cards so that they're in random order.
+         // Shuffle the cards so that they're in random order.
          Collections.shuffle(cards);
-         
+
          for (int i = 0; i < cards.size(); i++)
          {
             // System.out.println(cards.get(i));
