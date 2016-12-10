@@ -24,10 +24,7 @@ public class FlashCard
       String answer;
       ArrayList<Card> cards = new ArrayList<>();
       Scanner in = new Scanner(new File(filePath), "UTF-8");
-      String[] questionAndAnswer = new String[2];
-
-      // Set the scanner delimiter to delimit on commas and new lines
-      // in.useDelimiter("\\n|\\cr|\\:");
+      String[] questionAndAnswer;
 
       // Iterate through the file creating flash cards until the end of file is
       // reached
@@ -36,7 +33,7 @@ public class FlashCard
          while (in.hasNext())
          {
             //Parse and split each line of the input.
-            questionAndAnswer = in.nextLine().split(":");
+            questionAndAnswer = in.nextLine().split(":", 2);
             
             //Get the question and answer from the line
             question = questionAndAnswer[QUESTION_INDEX];
@@ -54,6 +51,8 @@ public class FlashCard
          // EOF has been reached.
       }
 
+      in.close();
+      
       return cards;
    }
 
@@ -112,6 +111,7 @@ public class FlashCard
             again = false;
          }
       }
+      userInput.close();
    }
 
 }
