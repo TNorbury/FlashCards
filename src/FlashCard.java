@@ -60,8 +60,19 @@ public class FlashCard
    public static void main(String[] args)
    {
       boolean again = true;
+      boolean displayHelp = false;
       ArrayList<Card> cards = null;
       Scanner userInput = new Scanner(System.in);
+
+      // Iterate over the command line arguments and parse them
+      if (args.length > 0)
+      {
+      
+      }
+      else
+      {
+      
+      }
 
       try
       {
