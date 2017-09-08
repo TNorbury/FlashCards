@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import javax.swing.*;
 
 /**
  * Creates a collection of flash cards read from a given file and then allows
@@ -56,15 +57,31 @@ public class FlashCard
       return cards;
    }
 
+   private static JFrame createGUI()
+   {
+      JFrame frame = new JFrame("Flash Cards");
+      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+      JLabel label = new JLabel("Flash Cards");
+      frame.getContentPane().add(label);
+
+      frame.pack();
+      frame.setVisible(true);
+
+      return frame;
+   }
+
 
    public static void main(String[] args)
    {
       boolean again = true;
       boolean displayHelp = false;
       boolean filePathGiven = false;
+      boolean enableGUI = false;
       ArrayList<Card> cards = null;
       Scanner userInput = new Scanner(System.in);
       String flashCardFilePath = "";
+      JFrame flashcardGUI;
 
       // Iterate over the command line arguments and parse them
       if (args.length > 0)
@@ -83,6 +100,12 @@ public class FlashCard
                // Display the help dialogue
                case "--help":
                   displayHelp = true;
+                  break;
+
+               // Display the flashcards in a GUI instead of on the command line
+               case "-g":
+               case "--GUI":
+                  enableGUI = true;
                   break;
             }
          }
@@ -111,6 +134,12 @@ public class FlashCard
          System.out.println("\t\tquestion:answer");
 
          System.exit(0);
+      }
+
+      // If the GUI is enabled, then create a window
+      if (enableGUI)
+      {
+         flashcardGUI = createGUI(); 
       }
 
       try
