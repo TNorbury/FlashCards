@@ -122,7 +122,7 @@ public class FlashCard
         {
             try
             {
-              cards.addAll(createCards(args[i]));
+              cards.addAll(createCards(cardFiles.get(i)));
               again = true;
             }
             catch (FileNotFoundException e)
