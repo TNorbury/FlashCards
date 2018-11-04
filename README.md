@@ -4,11 +4,11 @@ Program that creates a collection of flash cards in order to aid with studying
 # How to run
 Compile src/FlashCard.java using `javac` and then run it using `java`
 
-Pass the COMPLETE* file path of you txt file with questions and answers as the parameter. 
+Pass the file path of your text file with questions and answers as the parameter. 
 
-Windows:  `java FlashCards "M:\School\Class\FlashCardNotes.txt"` 
+Windows:  `java FlashCards M:\School\Class\FlashCardNotes.txt` 
 
-Bash:     `$java FlashCards "/home/tmoney"`
+Bash:     `$java FlashCards /home/tmoney/FlashCardNotes.txt`
 
 #FILE FORMAT
 The file format should be as follows:
@@ -26,16 +26,12 @@ The program uses UTF-8 character set so some characters (such as quotation marks
 If your file doesn't follow that format your cards will probably come out weird.
 
 
-
-
 #To-Do
-1. Improve parser  
-  * Some characters (such as numbers or quotation marks) cause the parser to split up cards in a weird way
-2. Make a GUI  
+1. Make a GUI  
   * This would also include a file browser, at some point, so the user wouldn't have to 
-3. Add a write/wrong discrimination  
+2. Add a write/wrong discrimination  
   * User would indicate if they got a card right or wrong, and depending on the answer the cards will be put into one of two collections, and on the next pass through the cards, only the "wrong" cards will be displayed
-4. Create an executable so user doesn't have to compile code
+3. Create an executable so user doesn't have to compile code
 <br/>
 <br/>
 <br/>
@@ -46,4 +42,3 @@ If your file doesn't follow that format your cards will probably come out weird.
 <br/>
 <br/>
 <br/>
-*Might work with relative file paths, haven't tested that though

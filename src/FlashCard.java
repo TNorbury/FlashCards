@@ -58,37 +58,77 @@ public class FlashCard
 
     public static void main(String[] args)
     {
-        boolean again = false;
-        int cardNum = 0;
-        ArrayList<Card> cards = new ArrayList<Card>;
+        boolean again = true;
+        boolean displayHelp = false;
+        boolean filePathGiven = false;
+        ArrayList<Card> cards = new ArrayList<>();
+        ArrayList<String> cardFiles = new ArrayList<>();
         Scanner userInput = new Scanner(System.in);
+        String flashCardFilePath = "";
 
-        if (args.length < 1)
+        // Iterate over the command line arguments and parse them
+        if (args.length > 0)
         {
+            for (int i = 0; i < args.length; i++)
+            {
+                switch (args[i])
+                {
+                    // Set the filepath of the cards
+                    case "-f":
+                    case "--filePath":
+                        filePathGiven = true;
+                        cardFiles.add(args[i + 1]);
+                        break;
 
+                    // Display the help dialogue
+                    case "--help":
+                        displayHelp = true;
+                        break;
+                    case "--flip":
+                        QUESTION_INDEX = 1;
+                        ANSWER_INDEX = 0;
+                        break;
+                }
+            }
         }
 
-        // If the cards are flipped, then the "back" side will be the question,
-        // and the "front" the answer
-        if (args[0] == "--flip")
+        // If no arguments were passed, then display the help dialogue
+        else
         {
-          QUESTION_INDEX = 1;
-          ANSWER_INDEX = 0;
-          cardNum = 1;
+            displayHelp = true;
         }
 
-        for (; cardNum < args.length; cardNum++)
+        // if the displayHelp flag was set, then display delp
+        if (displayHelp)
         {
-          try
-          {
-              cards.addAll(createCards(args[cardNum]));
+            System.out.println("\nThis program takes a file given by the user and creates a set of flash cards from it.");
+            System.out.println("USAGE:");
+            System.out.println("\tjava FlashCards.class [options]\n");
+            System.out.println("OPTIONS:");
+            System.out.println("\t-f | --filePath file path \tGive the program the filepath of the notecard file."
+            + "\n\t\t\t\t\tNote: if this is not set then the program will not run\n");
+            System.out.println("\t--flip \t\t\t\tTreat the backside of the card as the front\n");
+            System.out.println("\t--help \t\t\t\tDisplay this help dialogue\n");
+            System.out.println("FLASH CARD FORMAT:");
+            System.out.println("\tThe format for the flashcard file is as follows:");
+            System.out.println("\t\tquestion:answer");
+            System.out.println("\t\tquestion:answer");
+            System.out.println("\t\tquestion:answer");
+
+            System.exit(0);
+        }
+
+        for (int i = 0; i < cardFiles.size(); i++)
+        {
+            try
+            {
+              cards.addAll(createCards(args[i]));
               again = true;
-          }
-          catch (FileNotFoundException e)
-          {
-              System.err.println("Couldn't find the specified file:" + args[cardNum]);
-              System.exit(1);
-          }
+            }
+            catch (FileNotFoundException e)
+            {
+              System.err.println("Couldn't find the specified file:" + args[i]);
+            }
         }
 
         while (again)
