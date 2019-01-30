@@ -65,6 +65,10 @@ public class FlashCard
         ArrayList<String> cardFiles = new ArrayList<>();
         Scanner userInput = new Scanner(System.in);
         String flashCardFilePath = "";
+        int numQuestions = 0;
+
+        // Print out a blank line to separate the program text from the command line invocation
+        System.out.println("");
 
         // Iterate over the command line arguments and parse them
         if (args.length > 0)
@@ -88,6 +92,16 @@ public class FlashCard
                         QUESTION_INDEX = 1;
                         ANSWER_INDEX = 0;
                         break;
+                    case "--num":
+                        try
+                        {
+                            numQuestions = Integer.parseInt(args[i + 1]);
+                        }
+                        catch (NumberFormatException e)
+                        {
+                            System.err.println(args[i + 1] + " is not a number. This argument is being ignored");
+                        }
+                        break;
                 }
             }
         }
@@ -109,6 +123,7 @@ public class FlashCard
             + "\n\t\t\t\t\tNote: if this is not set then the program will not run\n");
             System.out.println("\t--flip \t\t\t\tTreat the backside of the card as the front\n");
             System.out.println("\t--help \t\t\t\tDisplay this help dialogue\n");
+            System.out.println("\t--num \t\t\t\tNumber of cards to go through\n");
             System.out.println("FLASH CARD FORMAT:");
             System.out.println("\tThe format for the flashcard file is as follows:");
             System.out.println("\t\tquestion:answer");
@@ -117,6 +132,7 @@ public class FlashCard
 
             System.exit(0);
         }
+
 
         for (int i = 0; i < cardFiles.size(); i++)
         {
@@ -127,8 +143,15 @@ public class FlashCard
             }
             catch (FileNotFoundException e)
             {
-              System.err.println("Couldn't find the specified file:" + args[i]);
+              System.err.println("Couldn't find the specified file:" + cardFiles.get(i));
             }
+        }
+
+        // If the number of question cards to go through wasn't given as a
+        // parameter, then we'll go through all the cards!
+        if (numQuestions == 0)
+        {
+            numQuestions = cards.size();
         }
 
         while (again)
@@ -140,7 +163,7 @@ public class FlashCard
                 "=========================================================="
                 + "=====================\n");
 
-            for (int i = 0; i < cards.size(); i++)
+            for (int i = 0; i < numQuestions; i++)
             {
                 // Iterate through each card.
                 // Display the card's question
