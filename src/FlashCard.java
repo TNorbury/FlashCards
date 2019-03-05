@@ -165,14 +165,21 @@ public class FlashCard
 
             for (int i = 0; i < numQuestions; i++)
             {
+                // Once all the cards have been read, shuffle them
+                if ((i % cards.size()) == 0)
+                {
+                    // Shuffle the cards so that they're in random order.
+                    Collections.shuffle(cards);
+                }
+
                 // Iterate through each card.
                 // Display the card's question
-                System.out.println(cards.get(i).getQuestion());
+                System.out.println(cards.get((i % cards.size())).getQuestion());
 
                 // Wait for the user to press enter before showing the answer
                 System.out.println("Press enter to show the answer...");
                 userInput.nextLine();
-                System.out.println(cards.get(i).getAnswer().trim());
+                System.out.println(cards.get((i % cards.size())).getAnswer().trim());
 
                 // Wait for for the user to press enter before going to the next
                 // card
@@ -181,6 +188,7 @@ public class FlashCard
                 System.out.println(
                       "=========================================================="
                             + "=====================\n");
+
             }
 
             // Ask the user if the want to go through the cards again
