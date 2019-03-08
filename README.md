@@ -10,7 +10,7 @@ Windows:  `java FlashCards M:\School\Class\FlashCardNotes.txt`
 
 Bash:     `$java FlashCards /home/tmoney/FlashCardNotes.txt`
 
-#FILE FORMAT
+# FILE FORMAT
 The file format should be as follows:
 
 question1:answer1
@@ -21,9 +21,8 @@ question2:answer2
 
 questionN:answerN
 
-The program uses UTF-8 character set so some characters (such as quotation marks) will appear as "?". This is something that I'll get around to working on (see To-Do)
 
-If your file doesn't follow that format your cards will probably come out weird.
+If your file doesn't follow that format your cards will probably come out weird or the program will crash
 
 
 #To-Do
