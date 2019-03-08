@@ -25,7 +25,7 @@ questionN:answerN
 If your file doesn't follow that format your cards will probably come out weird or the program will crash
 
 
-#To-Do
+# To-Do
 1. Make a GUI  
   * This would also include a file browser, at some point, so the user wouldn't have to 
 2. Add a write/wrong discrimination  
