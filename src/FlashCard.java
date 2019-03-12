@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.ArrayDeque;
 
 /**
  * Creates a collection of flash cards read from a given file and then allows
@@ -56,6 +57,44 @@ public class FlashCard
     }
 
 
+    private static void goThroughWrong(ArrayDeque<Card> wrongCards, Scanner userInput)
+    {
+        // Go through all the wrong cards until there aren't any left
+        while (!wrongCards.isEmpty())
+        {
+            Card currentCard = wrongCards.poll();
+            String input = answerCard(currentCard, userInput);
+            if (input.equals("6") || input.equals("n") || input.equals("e"))
+            {
+                wrongCards.offer(currentCard);
+                System.out.println();
+            }
+        }
+    }
+
+    /*
+     * Returns the user's response to the question
+     */
+    private static String answerCard(Card card, Scanner userInput)
+    {
+        // Display the card's question
+        System.out.println(card.getQuestion());
+
+        // Wait for the user to press enter before showing the answer
+        System.out.println("Press enter to show the answer...");
+        userInput.nextLine();
+        System.out.println(card.getAnswer().trim());
+
+        // Wait for for the user to press enter before going to the next
+        // card
+        System.out.println("Correct: 4/y/q, Wrong: 6/n/e. Or press enter to continue\n");
+        System.out.println(
+        "=========================================================="
+        + "=====================");
+
+        return userInput.nextLine();
+    }
+
     public static void main(String[] args)
     {
         boolean again = true;
@@ -66,6 +105,8 @@ public class FlashCard
         Scanner userInput = new Scanner(System.in);
         String flashCardFilePath = "";
         int numQuestions = 0;
+        ArrayDeque<Card> wrong = new ArrayDeque<Card>();
+        Card currentCard;
 
         // Print out a blank line to separate the program text from the command line invocation
         System.out.println("");
@@ -170,26 +211,19 @@ public class FlashCard
                 {
                     // Shuffle the cards so that they're in random order.
                     Collections.shuffle(cards);
+                    goThroughWrong(wrong, userInput);
                 }
 
-                // Iterate through each card.
-                // Display the card's question
-                System.out.println(cards.get((i % cards.size())).getQuestion());
-
-                // Wait for the user to press enter before showing the answer
-                System.out.println("Press enter to show the answer...");
-                userInput.nextLine();
-                System.out.println(cards.get((i % cards.size())).getAnswer().trim());
-
-                // Wait for for the user to press enter before going to the next
-                // card
-                System.out.println("Press enter to go to the next card...");
-                userInput.nextLine();
-                System.out.println(
-                      "=========================================================="
-                            + "=====================\n");
-
+                currentCard = cards.get((i % cards.size()));
+                String input = answerCard(currentCard, userInput);
+                if (input.equals("6") || input.equals("n") || input.equals("e"))
+                {
+                    wrong.offer(currentCard);
+                    System.out.println();
+                }
             }
+
+            goThroughWrong(wrong, userInput);
 
             // Ask the user if the want to go through the cards again
             System.out.print("Do you want to go through the cards again?(y/n) ");
