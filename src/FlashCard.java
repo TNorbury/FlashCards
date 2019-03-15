@@ -64,10 +64,10 @@ public class FlashCard
         {
             Card currentCard = wrongCards.poll();
             String input = answerCard(currentCard, userInput);
-            if (input.equals("6") || input.equals("n") || input.equals("e"))
+            if (!input.equals(""))
             {
                 wrongCards.offer(currentCard);
-                System.out.println();
+                System.out.println("");
             }
         }
     }
@@ -87,7 +87,7 @@ public class FlashCard
 
         // Wait for for the user to press enter before going to the next
         // card
-        System.out.println("Correct: 4/y/q, Wrong: 6/n/e. Or press enter to continue\n");
+        System.out.println("Enter something if this card is wrong, then press enter, or press enter to continue\n");
         System.out.println(
         "=========================================================="
         + "=====================");
