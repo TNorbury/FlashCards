@@ -10,7 +10,7 @@ bin/
 # Ignore Notes folder
 Notes/
 
-
+*.swp
 
 
 # Windows image file caches
