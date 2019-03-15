@@ -95,6 +95,21 @@ public class FlashCard
         return userInput.nextLine();
     }
 
+    private static int parseArgForInt(String arg)
+    {
+        int num = 0;
+        try
+        {
+            num = Integer.parseInt(arg);
+        }
+        catch (NumberFormatException e)
+        {
+            System.err.println(arg + " is not a number. This argument is being ignored");
+        }
+
+        return num;
+    }
+
     public static void main(String[] args)
     {
         boolean again = true;
@@ -105,6 +120,8 @@ public class FlashCard
         Scanner userInput = new Scanner(System.in);
         String flashCardFilePath = "";
         int numQuestions = 0;
+        int numRepeats = 0;
+        boolean useRepeats = false;
         ArrayDeque<Card> wrong = new ArrayDeque<Card>();
         Card currentCard;
 
@@ -134,14 +151,12 @@ public class FlashCard
                         ANSWER_INDEX = 0;
                         break;
                     case "--num":
-                        try
-                        {
-                            numQuestions = Integer.parseInt(args[i + 1]);
-                        }
-                        catch (NumberFormatException e)
-                        {
-                            System.err.println(args[i + 1] + " is not a number. This argument is being ignored");
-                        }
+                        numQuestions = parseArgForInt(args[i + 1]);
+                        break;
+                    case "-r":
+                    case "--repeat":
+                        useRepeats = true;
+                        numRepeats = parseArgForInt(args[i + 1]);
                         break;
                 }
             }
@@ -158,13 +173,14 @@ public class FlashCard
         {
             System.out.println("\nThis program takes a file given by the user and creates a set of flash cards from it.");
             System.out.println("USAGE:");
-            System.out.println("\tjava FlashCards.class [options]\n");
+            System.out.println("\tjava FlashCards.class -f|--file filePathToCard [options]\n");
             System.out.println("OPTIONS:");
             System.out.println("\t-f | --filePath file path \tGive the program the filepath of the notecard file."
             + "\n\t\t\t\t\tNote: if this is not set then the program will not run\n");
             System.out.println("\t--flip \t\t\t\tTreat the backside of the card as the front\n");
             System.out.println("\t--help \t\t\t\tDisplay this help dialogue\n");
-            System.out.println("\t--num \t\t\t\tNumber of cards to go through\n");
+            System.out.println("\t--num int\t\t\t\tNumber of cards to go through\n");
+            System.out.println("\t-r | --repeat int\t\t\t\tNumber of times to repeat going through the cards\n");
             System.out.println("FLASH CARD FORMAT:");
             System.out.println("\tThe format for the flashcard file is as follows:");
             System.out.println("\t\tquestion:answer");
@@ -216,24 +232,42 @@ public class FlashCard
 
                 currentCard = cards.get((i % cards.size()));
                 String input = answerCard(currentCard, userInput);
-                if (input.equals("6") || input.equals("n") || input.equals("e"))
+                if (!input.equals(""))
                 {
                     wrong.offer(currentCard);
-                    System.out.println();
+                    System.out.println("");
                 }
             }
 
             goThroughWrong(wrong, userInput);
 
-            // Ask the user if the want to go through the cards again
-            System.out.print("Do you want to go through the cards again?(y/n) ");
-            if (userInput.nextLine().toLowerCase().equals("y"))
+            // If the user said how many times they want to repeat, then don't ask
+            // them if they want to repeat
+            if (useRepeats)
             {
-                again = true;
+                if (numRepeats > 0)
+                {
+                    again = true;
+                    numRepeats --;
+                }
+                else
+                {
+                    again = false;
+                }
             }
+
             else
             {
-                again = false;
+                // Ask the user if the want to go through the cards again
+                System.out.print("Do you want to go through the cards again?(y/n) ");
+                if (userInput.nextLine().toLowerCase().equals("y"))
+                {
+                    again = true;
+                }
+                else
+                {
+                    again = false;
+                }
             }
         }
         userInput.close();
