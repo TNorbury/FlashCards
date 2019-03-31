@@ -214,7 +214,7 @@ public class FlashCard
         System.out.println(
         "=========================================================="
         + "=====================\n");
-        
+
         while (again)
         {
             // Shuffle the cards so that they're in random order.
@@ -264,6 +264,9 @@ public class FlashCard
                 if (userInput.nextLine().toLowerCase().equals("y"))
                 {
                     again = true;
+                    System.out.println(
+                    "=========================================================="
+                    + "=====================\n");
                 }
                 else
                 {
