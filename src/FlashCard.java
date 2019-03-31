@@ -211,14 +211,15 @@ public class FlashCard
             numQuestions = cards.size();
         }
 
+        System.out.println(
+        "=========================================================="
+        + "=====================\n");
+        
         while (again)
         {
             // Shuffle the cards so that they're in random order.
             Collections.shuffle(cards);
 
-            System.out.println(
-                "=========================================================="
-                + "=====================\n");
 
             for (int i = 0; i < numQuestions; i++)
             {
